@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const StyledContainerLogin = styled.div`
+const StyledContainerForm = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -28,13 +28,4 @@ const StyledContainerLogin = styled.div`
   }
 `;
 
-const StyledFormLogin = styled.form`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  width: 100%;
-  gap: 2rem;
-`;
-
-export { StyledContainerLogin, StyledFormLogin };
+export { StyledContainerForm };

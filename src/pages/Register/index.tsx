@@ -1,33 +1,51 @@
 import Text from "../../styles/Typography";
+import StyledButton from "../../styles/components/Button";
+import StyledForm from "../Login/style";
 import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
 import Input from "@mui/material/Input";
-import TextField from "@mui/material/TextField";
 import InputAdornment from "@mui/material/InputAdornment";
-import LoadingButton from "@mui/lab/LoadingButton";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import IconButton from "@mui/material/IconButton";
 import SendIcon from "@mui/icons-material/Send";
-import StyledButton from "../../styles/components/Button";
-import StyledForm from "./style";
 import { StyledContainerForm } from "../../styles/components/Container/ContainerLogin";
+import { LoadingButton } from "@mui/lab";
 import { useState } from "react";
+import { TextField } from "@mui/material";
 
-const Login = () => {
+const Register = () => {
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
 
   const handleClick = () => setLoading(true);
   const handleClickShowPassword = () => setShowPassword((show) => !show);
-
   return (
     <StyledContainerForm>
       <StyledForm>
+        <TextField fullWidth label="Nome" variant="standard" required />
         <TextField fullWidth label="Email" variant="standard" required />
         <FormControl fullWidth variant="standard" required>
           <InputLabel htmlFor="standard-adornment-password">
             Senha
+          </InputLabel>
+          <Input
+            type={showPassword ? "text" : "password"}
+            endAdornment={
+              <InputAdornment position="end">
+                <IconButton
+                  aria-label="toggle password visibility"
+                  onClick={handleClickShowPassword}
+                >
+                  {showPassword ? <VisibilityOff /> : <Visibility />}
+                </IconButton>
+              </InputAdornment>
+            }
+          />
+        </FormControl>
+        <FormControl fullWidth variant="standard" required>
+          <InputLabel htmlFor="standard-adornment-password">
+            Confirmar senha
           </InputLabel>
           <Input
             type={showPassword ? "text" : "password"}
@@ -51,18 +69,17 @@ const Login = () => {
           loadingPosition="end"
           variant="contained"
         >
-          <span>Login</span>
+          <span>Cadastrar</span>
         </LoadingButton>
       </StyledForm>
-
       <div className="form__register">
         <Text tag="span" color="grey4">
           OU
         </Text>
-        <StyledButton to={"/register"}>Cadastre-se</StyledButton>
+        <StyledButton to={"/login"}>Login</StyledButton>
       </div>
     </StyledContainerForm>
   );
 };
 
-export default Login;
+export default Register;
