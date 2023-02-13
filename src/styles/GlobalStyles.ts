@@ -2,10 +2,11 @@ import { createGlobalStyle } from "styled-components";
 
 const GlobalStyles = createGlobalStyle`
 :root {
+    
         //Primary Palette
-        --color-primary: #FF4200;
-        --color-primary-focus: #ed3b00;
-        --color-primary-negative: rgb(255, 66, 0, 0.7);
+        --color-primary: rgb(0, 4, 202);
+        --color-primary-focus: rgba(0, 121, 163, 1);
+        --color-primary-s: rgba(0, 182, 142, 1);
         //Grey Scale Palette
         --color-white: #ffffff;
         --color-grey-1: #1C1C1C;
