@@ -13,22 +13,31 @@ import StyledButton from "../../styles/components/Button";
 import StyledForm from "./style";
 import { StyledContainerForm } from "../../styles/components/Container/ContainerLogin";
 import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { loginSchema } from "../../services/validations/user";
+import { ILoginForm } from "../../interface/Home";
+import { useHomeContext } from "../../contexts/UserContext";
 
 const Login = () => {
-  const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
-
-  const handleClick = () => setLoading(true);
+  const { loading } = useHomeContext();
   const handleClickShowPassword = () => setShowPassword((show) => !show);
+
+  const formOptions = { resolver: yupResolver(loginSchema) };
+
+  const {
+    register,
+    formState: { errors },
+    handleSubmit,
+  } = useForm<ILoginForm>(formOptions);
 
   return (
     <StyledContainerForm>
       <StyledForm>
         <TextField fullWidth label="Email" variant="standard" required />
         <FormControl fullWidth variant="standard" required>
-          <InputLabel htmlFor="standard-adornment-password">
-            Senha
-          </InputLabel>
+          <InputLabel htmlFor="standard-adornment-password">Senha</InputLabel>
           <Input
             type={showPassword ? "text" : "password"}
             endAdornment={
@@ -45,7 +54,6 @@ const Login = () => {
         </FormControl>
         <LoadingButton
           fullWidth
-          onClick={handleClick}
           endIcon={<SendIcon />}
           loading={loading}
           loadingPosition="end"
