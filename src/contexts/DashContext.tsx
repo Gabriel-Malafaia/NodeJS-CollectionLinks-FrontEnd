@@ -2,7 +2,7 @@ import axios from "axios";
 import Api from "../services/api";
 import { createContext, useContext, useEffect, useState } from "react";
 import { IUser } from "../interface/Home";
-import { ICreateCardForm } from "../interface/Links";
+import { ICreateCardForm, IEditCardForm } from "../interface/Links";
 import { IDashContextProvider, IChildrenNode } from "../interface/TypeGlobal";
 import { toastError, toastSuccess } from "../styles/components/Toastify";
 
@@ -14,6 +14,27 @@ const DashContextProvider = ({ children }: IChildrenNode) => {
   const [user, setUser] = useState<IUser>({} as IUser);
   const [update, setUpdate] = useState(false);
   const [loading, setLoading] = useState(false);
+
+  const favoriteLink = async (id: string, isFavorite: boolean) => {
+    setLoading(true);
+
+    try {
+      isFavorite
+        ? await Api.delete(`links/${id}/unfavorite`)
+        : await Api.post(`links/${id}/favorite`);
+
+      toastSuccess("Link favoritado!");
+      setUpdate(!update);
+    } catch (err) {
+      if (axios.isAxiosError(err)) {
+        const error = err.response?.data;
+        toastError(error.message);
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
+  const editLink = async (data: IEditCardForm) => {};
 
   const createLink = async (data: ICreateCardForm) => {
     !data.description && delete data.description;
@@ -71,7 +92,14 @@ const DashContextProvider = ({ children }: IChildrenNode) => {
 
   return (
     <dashContext.Provider
-      value={{ user, setUser, loading, createLink, deleteLink }}
+      value={{
+        user,
+        setUser,
+        loading,
+        createLink,
+        deleteLink,
+        favoriteLink,
+      }}
     >
       {children}
     </dashContext.Provider>

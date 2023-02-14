@@ -5,7 +5,6 @@ import FormCard from "../FormCard";
 import Loading from "../../Loading";
 import { useDashContext } from "../../../contexts/DashContext";
 import { CardList, HomeContainer } from "./style";
-import AlertDialog from "../../AlertDialog";
 
 const DashHome = () => {
   const { user, loading } = useDashContext();
@@ -23,16 +22,19 @@ const DashHome = () => {
                 <Loading key={`${index} load`} />
               ))
             : links &&
-              links.map(({ title, url, description, createdAt, id }) => (
-                <DashCard
-                  id={id}
-                  title={title}
-                  url={url}
-                  description={description}
-                  createdAt={createdAt}
-                  key={title}
-                />
-              ))}
+              links.map(
+                ({ title, url, description, createdAt, id, favorite }) => (
+                  <DashCard
+                    isFavorite={favorite}
+                    id={id}
+                    title={title}
+                    url={url}
+                    description={description}
+                    createdAt={createdAt}
+                    key={title}
+                  />
+                )
+              )}
         </CardList>
       </HomeContainer>
     </>

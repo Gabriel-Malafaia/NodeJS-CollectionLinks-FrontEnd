@@ -12,6 +12,7 @@ export interface IUserContextProvider {
 }
 
 export interface IDashContextProvider {
+  favoriteLink: (id: string, isFavorite: boolean) => Promise<void>;
   deleteLink: (id: string) => Promise<void>;
   createLink: (data: ICreateCardForm) => Promise<void>;
   loading: boolean;

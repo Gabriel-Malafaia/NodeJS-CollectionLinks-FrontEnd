@@ -11,10 +11,19 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import { IDashCard } from "../../interface/Home";
 import { useState } from "react";
 import AlertDialog from "../AlertDialog";
+import { useDashContext } from "../../contexts/DashContext";
 
-const DashCard = ({ title, url, description, createdAt, id }: IDashCard) => {
+const DashCard = ({
+  title,
+  url,
+  description,
+  createdAt,
+  id,
+  isFavorite,
+}: IDashCard) => {
   const [deleteCard, setDeleteCard] = useState(false);
   const Date = createdAt.slice(0, 10).split("-").reverse().join("-");
+  const { favoriteLink } = useDashContext();
 
   const handleDelete = () => {
     setDeleteCard(true);
@@ -30,8 +39,11 @@ const DashCard = ({ title, url, description, createdAt, id }: IDashCard) => {
             </Avatar>
           }
           action={
-            <IconButton aria-label="add to favorites">
-              <FavoriteIcon />
+            <IconButton
+              onClick={() => favoriteLink(id, isFavorite)}
+              aria-label="add to favorites"
+            >
+              <FavoriteIcon color={isFavorite ? "error" : "action"} />
             </IconButton>
           }
           title={title}

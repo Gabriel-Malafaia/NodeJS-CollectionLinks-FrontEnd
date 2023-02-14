@@ -15,9 +15,11 @@ export interface AlertDialog {
 
 const AlertDialog = ({ state, setState, text, id }: AlertDialog) => {
   const { deleteLink } = useDashContext();
-  const handleClose = () => {
-    setState(false);
+
+  const handleClose = () => setState(false);
+  const handleDelete = () => {
     deleteLink(id);
+    setState(false);
   };
 
   return (
@@ -35,7 +37,7 @@ const AlertDialog = ({ state, setState, text, id }: AlertDialog) => {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose}>Sim</Button>
+          <Button onClick={handleDelete}>Sim</Button>
           <Button onClick={handleClose} autoFocus>
             Não
           </Button>
