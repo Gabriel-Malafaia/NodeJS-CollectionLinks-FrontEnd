@@ -1,9 +1,10 @@
 import { Routes, Route, Navigate } from "react-router-dom";
-import { UserContextProvider } from "../contexts/UserContext";
+import { DashContextProvider } from "../contexts/DashContext";
+import Dashboard from "../pages/Dashboard";
 import Home from "../pages/Home";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
-UserContextProvider;
+import PrivateRoute from "./privateRoute";
 
 const RoutesApp = () => {
   return (
@@ -13,6 +14,16 @@ const RoutesApp = () => {
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
       </Route>
+      <Route
+        path="/dashboard"
+        element={
+          <DashContextProvider>
+            <PrivateRoute>
+              <Dashboard />
+            </PrivateRoute>
+          </DashContextProvider>
+        }
+      />
       <Route path="*" element={<Navigate to={"login"} />} />
     </Routes>
   );

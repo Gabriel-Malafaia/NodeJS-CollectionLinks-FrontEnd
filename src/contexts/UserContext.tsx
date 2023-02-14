@@ -1,8 +1,13 @@
 import axios from "axios";
 import { createContext, useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { ILoginForm, IRegisterForm, IUser } from "../interface/Home";
-import { IUserContextProvider, IChildrenNode } from "../interface/TypesGlobal";
+import {
+  ILoginForm,
+  IRegisterForm,
+  IUser,
+  IUserResponse,
+} from "../interface/Home";
+import { IUserContextProvider, IChildrenNode } from "../interface/TypeGlobal";
 import Api from "../services/api";
 import { toastError, toastSuccess } from "../styles/components/Toastify";
 
@@ -41,8 +46,10 @@ const UserContextProvider = ({ children }: IChildrenNode) => {
 
     try {
       const request = await Api.post("/session", data);
-      const response: IUser = request.data;
+      const response: IUserResponse = request.data;
       localStorage.setItem("@collectionLinkToken", response.token);
+      toastSuccess("Bem-vindo à Collection Link!");
+      navigation("/dashboard");
     } catch (err) {
       if (axios.isAxiosError(err)) {
         const error = err.response?.data;
@@ -54,7 +61,7 @@ const UserContextProvider = ({ children }: IChildrenNode) => {
   };
 
   return (
-    <userContext.Provider value={{ registerUser, loading, loginUser }}>
+    <userContext.Provider value={{ registerUser, loading, loginUser}}>
       {children}
     </userContext.Provider>
   );
@@ -62,4 +69,4 @@ const UserContextProvider = ({ children }: IChildrenNode) => {
 
 const useHomeContext = () => useContext(userContext);
 
-export { userContext, UserContextProvider, useHomeContext };
+export { UserContextProvider, useHomeContext };

@@ -1,6 +1,4 @@
-import {
-  ITitleComponent,
-} from "../../../interface/TypeGlobalStyles";
+import { ITitleComponent } from "../../../interface/TypesGlobalStyles";
 
 const TitleComponent = ({ tag, children, className }: ITitleComponent) => {
   return (

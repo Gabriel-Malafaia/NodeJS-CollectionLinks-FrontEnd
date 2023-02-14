@@ -33,5 +33,9 @@ export interface IUser {
   email: string;
   createdAt: string;
   links: ILink[];
+}
+
+export interface IUserResponse {
+  user: IUser;
   token: string;
 }

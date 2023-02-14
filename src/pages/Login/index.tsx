@@ -18,10 +18,11 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { loginSchema } from "../../services/validations/user";
 import { ILoginForm } from "../../interface/Home";
 import { useHomeContext } from "../../contexts/UserContext";
+import StyledErrorMessage from "../Register/style";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
-  const { loading } = useHomeContext();
+  const { loginUser, loading } = useHomeContext();
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
   const formOptions = { resolver: yupResolver(loginSchema) };
@@ -34,11 +35,21 @@ const Login = () => {
 
   return (
     <StyledContainerForm>
-      <StyledForm>
-        <TextField fullWidth label="Email" variant="standard" required />
+      <StyledForm onSubmit={handleSubmit(loginUser)}>
+        <TextField
+          {...register("email")}
+          error={!!errors.email}
+          helperText={errors.email?.message}
+          fullWidth
+          label="Email"
+          variant="standard"
+          required
+        />
         <FormControl fullWidth variant="standard" required>
           <InputLabel htmlFor="standard-adornment-password">Senha</InputLabel>
           <Input
+            {...register("password")}
+            error={!!errors.password}
             type={showPassword ? "text" : "password"}
             endAdornment={
               <InputAdornment position="end">
@@ -51,8 +62,12 @@ const Login = () => {
               </InputAdornment>
             }
           />
+          {!!errors.password && (
+            <StyledErrorMessage>{errors.password?.message}</StyledErrorMessage>
+          )}
         </FormControl>
         <LoadingButton
+          type="submit"
           fullWidth
           endIcon={<SendIcon />}
           loading={loading}
