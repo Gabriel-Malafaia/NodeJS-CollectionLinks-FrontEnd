@@ -1,10 +1,13 @@
-import { Routes, Route, Navigate } from "react-router-dom";
-import { DashContextProvider } from "../contexts/DashContext";
-import Dashboard from "../pages/Dashboard";
+import DashFavorite from "../components/Dashboard/Favoritos";
+import DashHome from "../components/Dashboard/Home";
+import DashAbout from "../components/Dashboard/Sobre";
 import Home from "../pages/Home";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
 import PrivateRoute from "./privateRoute";
+import { Routes, Route, Navigate } from "react-router-dom";
+import { DashContextProvider } from "../contexts/DashContext";
+import DashHeader from "../pages/Dashboard/Header";
 
 const RoutesApp = () => {
   return (
@@ -19,11 +22,19 @@ const RoutesApp = () => {
         element={
           <DashContextProvider>
             <PrivateRoute>
-              <Dashboard />
+              <DashHeader />
             </PrivateRoute>
           </DashContextProvider>
         }
-      />
+      >
+        <Route
+          path="/dashboard"
+          element={<Navigate to={"/dashboard/home"} />}
+        />
+        <Route path="/dashboard/home" element={<DashHome />} />
+        <Route path="/dashboard/favoritos" element={<DashFavorite />} />
+        <Route path="/dashboard/sobre" element={<DashAbout />} />
+      </Route>
       <Route path="*" element={<Navigate to={"login"} />} />
     </Routes>
   );

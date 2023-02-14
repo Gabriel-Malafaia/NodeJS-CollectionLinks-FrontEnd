@@ -11,6 +11,7 @@ export interface IUserContextProvider {
 }
 
 export interface IDashContextProvider {
+  loading: boolean;
   user: IUser;
   setUser: React.Dispatch<React.SetStateAction<IUser>>;
 }

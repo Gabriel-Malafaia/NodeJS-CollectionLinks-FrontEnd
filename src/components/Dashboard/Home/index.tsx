@@ -1,12 +1,36 @@
+import Text from "../../../styles/Typography";
+import Toolbar from "@mui/material/Toolbar";
+import DashCard from "../../LinkCard";
+import FormCard from "../FormCard";
+import Loading from "../../Loading";
+import { useDashContext } from "../../../contexts/DashContext";
+import { CardList, HomeContainer } from "./style";
+
 const DashHome = () => {
+  const { user, loading } = useDashContext();
+  const { name, links } = user;
+
   return (
     <>
-      <p>
-        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quisquam
-        placeat vero excepturi animi iste? Recusandae odit quas praesentium
-        fugit eos facilis architecto necessitatibus accusantium repudiandae.
-        Quidem, dolorum? Voluptatibus, eius ipsam?
-      </p>
+      <Text tag="h2">Bem-vindo novamente, {name}!</Text>
+      <Toolbar />
+      <HomeContainer>
+        <FormCard />
+        <CardList>
+          {loading
+            ? Array.from(new Array(8)).map((elem,index) => <Loading key={`${index} load`}/>)
+            : links &&
+              links.map(({ title, url, description, createdAt }) => (
+                <DashCard
+                  title={title}
+                  url={url}
+                  description={description}
+                  createdAt={createdAt}
+                  key={title}
+                />
+              ))}
+        </CardList>
+      </HomeContainer>
     </>
   );
 };

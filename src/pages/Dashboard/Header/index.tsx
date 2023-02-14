@@ -12,32 +12,23 @@ import MenuIcon from "@mui/icons-material/Menu";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
-import DashHome from "../Home";
-import DashFavorite from "../Favoritos";
-import DashAbout from "../Sobre";
+import DashHome from "../../../components/Dashboard/Home";
+import DashFavorite from "../../../components/Dashboard/Favoritos";
+import DashAbout from "../../../components/Dashboard/Sobre";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 
 interface Props {
   window?: () => Window;
 }
 
 const drawerWidth = 240;
-const navItems = ["Home", "Favoritos", "Sobre"];
-
-const components: any = {
-  Home: <DashHome />,
-  Favoritos: <DashFavorite />,
-  Sobre: <DashAbout />,
-};
+const navItems = ["home", "favoritos", "sobre"];
 
 const DashHeader = (props: Props) => {
   const { window } = props;
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [section, setSection] = useState("Home");
   const navigation = useNavigate();
-
-  console.log(section);
 
   const handleDrawerToggle = () => {
     setMobileOpen((prevState) => !prevState);
@@ -45,7 +36,7 @@ const DashHeader = (props: Props) => {
 
   const handleLogout = () => {
     localStorage.clear();
-    return navigation("/login");
+    navigation("/login");
   };
 
   const drawer = (
@@ -58,7 +49,7 @@ const DashHeader = (props: Props) => {
         {navItems.map((item) => (
           <ListItem key={item} disablePadding>
             <ListItemButton
-              onClick={() => setSection(item)}
+              onClick={() => navigation(`/dashboard/${item}`)}
               sx={{ textAlign: "center" }}
             >
               <ListItemText primary={item} />
@@ -81,7 +72,7 @@ const DashHeader = (props: Props) => {
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
       <AppBar component="nav">
-        <Toolbar>
+        <Toolbar sx={{ maxWidth: 1600, width: "100%", margin: "auto" }}>
           <IconButton
             color="inherit"
             aria-label="open drawer"
@@ -101,7 +92,7 @@ const DashHeader = (props: Props) => {
           <Box sx={{ display: { xs: "none", sm: "block" } }}>
             {navItems.map((item) => (
               <Button
-                onClick={() => setSection(item)}
+                onClick={() => navigation(`/dashboard/${item}`)}
                 key={item}
                 sx={{ color: "#fff" }}
               >
@@ -135,9 +126,9 @@ const DashHeader = (props: Props) => {
           {drawer}
         </Drawer>
       </Box>
-      <Box component="main" sx={{ p: 3 }}>
+      <Box component="main" sx={{ p: 3, width: "100%", maxWidth: 1600, margin: 'auto' }}>
         <Toolbar />
-        {components[section]}
+        <Outlet />
       </Box>
     </Box>
   );

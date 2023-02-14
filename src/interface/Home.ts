@@ -39,3 +39,10 @@ export interface IUserResponse {
   user: IUser;
   token: string;
 }
+
+export interface IDashCard {
+  title: string;
+  url: string;
+  description: string;
+  createdAt: string;
+}
