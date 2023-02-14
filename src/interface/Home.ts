@@ -41,6 +41,7 @@ export interface IUserResponse {
 }
 
 export interface IDashCard {
+  id: string
   title: string;
   url: string;
   description: string;
