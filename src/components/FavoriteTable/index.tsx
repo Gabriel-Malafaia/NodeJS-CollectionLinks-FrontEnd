@@ -111,9 +111,17 @@ const CollapsibleTable = () => {
           </StyledBox>
         ))
       ) : filterRows?.length == 0 ? (
-        <p>
-          Para ver essa seção, você precisa adicionar algum link nos favoritos!
-        </p>
+        <>
+          <p>
+            Para ver essa seção, você precisa adicionar algum link nos
+            favoritos!
+          </p>
+          <p>
+            ** Atualmente, o nosso recurso de scraping (puppeteer) só está
+            disponível localmente devido a uma limitação da plataforma de
+            hospedagem gratuita que estamos usando no servidor (render.com){" "}
+          </p>
+        </>
       ) : (
         <TableContainer sx={{ marginTop: "3rem" }} component={Paper}>
           <Table aria-label="collapsible table">

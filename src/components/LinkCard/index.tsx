@@ -13,6 +13,7 @@ import EditDialog from "../EditDialog";
 import { useDashContext } from "../../contexts/DashContext";
 import { useState } from "react";
 import { IDashCard } from "../../interface/Links";
+import StyledAnchor from "./style";
 
 const DashCard = ({
   title,
@@ -32,7 +33,7 @@ const DashCard = ({
 
   return (
     <>
-      <Card sx={{minWidth: '310px'}}>
+      <Card>
         <CardHeader
           avatar={
             <Avatar sx={{ bgcolor: "#0004CA" }} aria-label="recipe">
@@ -62,6 +63,9 @@ const DashCard = ({
           <IconButton onClick={handleDelete} aria-label="delete">
             <DeleteIcon />
           </IconButton>
+          <StyledAnchor href={url} target="_blank">
+            Acessar
+          </StyledAnchor>
         </CardActions>
       </Card>
       {deleteCard && (

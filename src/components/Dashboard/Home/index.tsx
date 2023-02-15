@@ -24,7 +24,7 @@ const DashHome = () => {
             : links &&
               links.map(
                 ({ title, url, description, createdAt, id, favorite }) => (
-                  <div key={`${title} ${url}`}>
+                  <div className="DashCardDiv" key={`${title} ${url}`}>
                     <DashCard
                       isFavorite={favorite}
                       id={id}
