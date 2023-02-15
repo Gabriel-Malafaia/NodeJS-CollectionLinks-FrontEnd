@@ -8,10 +8,11 @@ import Avatar from "@mui/material/Avatar";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import { IDashCard } from "../../interface/Home";
-import { useState } from "react";
 import AlertDialog from "../AlertDialog";
+import EditDialog from "../EditDialog";
 import { useDashContext } from "../../contexts/DashContext";
+import { useState } from "react";
+import { IDashCard } from "../../interface/Links";
 
 const DashCard = ({
   title,
@@ -22,16 +23,16 @@ const DashCard = ({
   isFavorite,
 }: IDashCard) => {
   const [deleteCard, setDeleteCard] = useState(false);
+  const [editCard, setEditCard] = useState(false);
   const Date = createdAt.slice(0, 10).split("-").reverse().join("-");
   const { favoriteLink } = useDashContext();
 
-  const handleDelete = () => {
-    setDeleteCard(true);
-  };
+  const handleEdit = () => setEditCard(true);
+  const handleDelete = () => setDeleteCard(true);
 
   return (
     <>
-      <Card sx={{ maxWidth: 310, width: "100%", maxHeight: "50%" }}>
+      <Card sx={{minWidth: '310px'}}>
         <CardHeader
           avatar={
             <Avatar sx={{ bgcolor: "#0004CA" }} aria-label="recipe">
@@ -55,7 +56,7 @@ const DashCard = ({
           </Typography>
         </CardContent>
         <CardActions disableSpacing>
-          <IconButton aria-label="share">
+          <IconButton onClick={handleEdit} aria-label="share">
             <EditIcon />
           </IconButton>
           <IconButton onClick={handleDelete} aria-label="delete">
@@ -63,14 +64,27 @@ const DashCard = ({
           </IconButton>
         </CardActions>
       </Card>
-      <AlertDialog
-        id={id}
-        state={deleteCard}
-        setState={setDeleteCard}
-        text={
-          "Ao deletar esse link, você não terá mais acesso a ele em seus registros!"
-        }
-      />
+      {deleteCard && (
+        <AlertDialog
+          id={id}
+          state={deleteCard}
+          setState={setDeleteCard}
+          text={
+            "Ao deletar esse link, você não terá mais acesso a ele em seus registros!"
+          }
+        />
+      )}
+      {editCard && (
+        <EditDialog
+          title={title}
+          description={description}
+          url={url}
+          id={id}
+          state={editCard}
+          setState={setEditCard}
+          isFavorite={isFavorite}
+        />
+      )}
     </>
   );
 };

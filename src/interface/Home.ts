@@ -40,11 +40,3 @@ export interface IUserResponse {
   token: string;
 }
 
-export interface IDashCard {
-  id: string;
-  title: string;
-  url: string;
-  description: string;
-  createdAt: string;
-  isFavorite: boolean;
-}

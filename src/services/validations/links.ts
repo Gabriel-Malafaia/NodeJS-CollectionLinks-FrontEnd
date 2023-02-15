@@ -9,4 +9,10 @@ const createCardSchema = yup.object().shape({
   url: yup.string().required("Url obrigatório!"),
 });
 
-export { createCardSchema };
+const editCardSchema = yup.object().shape({
+  title: yup.string().notRequired().max(26, "Máximo de 26 caracteres!"),
+  description: yup.string().notRequired().max(156, "Máximo de 156 caracteres!"),
+  url: yup.string().notRequired(),
+});
+
+export { createCardSchema, editCardSchema };

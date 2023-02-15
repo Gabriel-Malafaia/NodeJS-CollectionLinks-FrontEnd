@@ -7,10 +7,11 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { createCardSchema } from "../../../services/validations/links";
 import { useDashContext } from "../../../contexts/DashContext";
 import { ICreateCardForm } from "../../../interface/Links";
+import { LoadingButton } from "@mui/lab";
 
 const FormCard = () => {
   const formOptions = { resolver: yupResolver(createCardSchema) };
-  const { createLink } = useDashContext();
+  const { createLink, loading } = useDashContext();
 
   const {
     register,
@@ -43,9 +44,17 @@ const FormCard = () => {
         multiline
         rows={2}
       />
-      <Button type="submit" variant="contained" endIcon={<SendIcon />}>
-        Cadastrar Link
-      </Button>
+      <LoadingButton
+        sx={{width: '45%'}}
+        type="submit"
+        fullWidth
+        endIcon={<SendIcon />}
+        loading={loading}
+        loadingPosition="end"
+        variant="contained"
+      >
+        <span>Cadastrar Link</span>
+      </LoadingButton>
     </StyledFormCard>
   );
 };

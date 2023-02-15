@@ -13,7 +13,7 @@ const dashContext = createContext<IDashContextProvider>(
 const DashContextProvider = ({ children }: IChildrenNode) => {
   const [user, setUser] = useState<IUser>({} as IUser);
   const [update, setUpdate] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const favoriteLink = async (id: string, isFavorite: boolean) => {
     setLoading(true);
@@ -23,7 +23,7 @@ const DashContextProvider = ({ children }: IChildrenNode) => {
         ? await Api.delete(`links/${id}/unfavorite`)
         : await Api.post(`links/${id}/favorite`);
 
-      toastSuccess("Link favoritado!");
+      toastSuccess(isFavorite ? "Link desfavoritado!" : "Link favoritado!");
       setUpdate(!update);
     } catch (err) {
       if (axios.isAxiosError(err)) {
@@ -34,7 +34,22 @@ const DashContextProvider = ({ children }: IChildrenNode) => {
       setLoading(false);
     }
   };
-  const editLink = async (data: IEditCardForm) => {};
+  const editLink = async (data: IEditCardForm, id: string) => {
+    setLoading(true);
+
+    try {
+      await Api.patch(`/links/${id}`, data);
+      toastSuccess("Link editado!");
+      setUpdate(!update);
+    } catch (err) {
+      if (axios.isAxiosError(err)) {
+        const error = err.response?.data;
+        toastError(error.message);
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const createLink = async (data: ICreateCardForm) => {
     !data.description && delete data.description;
@@ -84,6 +99,8 @@ const DashContextProvider = ({ children }: IChildrenNode) => {
         return response;
       } catch (err) {
         console.error("Deu erro");
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -99,6 +116,7 @@ const DashContextProvider = ({ children }: IChildrenNode) => {
         createLink,
         deleteLink,
         favoriteLink,
+        editLink,
       }}
     >
       {children}

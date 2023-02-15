@@ -1,7 +1,6 @@
 import styled from "styled-components";
 
 const HomeContainer = styled.div`
-
   display: flex;
   justify-content: space-between;
   width: 100%;
@@ -11,9 +10,10 @@ const HomeContainer = styled.div`
 
 const CardList = styled.ul`
   display: flex;
-  justify-content: space-between;
   flex-wrap: wrap;
-  gap: 1rem;
+  justify-content: space-between;
+  /* background-color: red; */
+  gap: 2rem;
   width: 100%;
 `;
 

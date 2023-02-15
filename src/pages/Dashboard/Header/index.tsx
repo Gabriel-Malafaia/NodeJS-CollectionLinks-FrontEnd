@@ -12,9 +12,6 @@ import MenuIcon from "@mui/icons-material/Menu";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
-import DashHome from "../../../components/Dashboard/Home";
-import DashFavorite from "../../../components/Dashboard/Favoritos";
-import DashAbout from "../../../components/Dashboard/Sobre";
 import { useState } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 
@@ -23,7 +20,7 @@ interface Props {
 }
 
 const drawerWidth = 240;
-const navItems = ["home", "favoritos", "sobre"];
+const navItems = ["home", "favoritos"];
 
 const DashHeader = (props: Props) => {
   const { window } = props;

@@ -17,22 +17,23 @@ const DashHome = () => {
       <HomeContainer>
         <FormCard />
         <CardList>
-          {loading
-            ? Array.from(new Array(8)).map((elem, index) => (
-                <Loading key={`${index} load`} />
+          {loading || links.length == 0
+            ? Array.from(new Array(6)).map((elem, index) => (
+                <Loading key={`${index} Load`} />
               ))
             : links &&
               links.map(
                 ({ title, url, description, createdAt, id, favorite }) => (
-                  <DashCard
-                    isFavorite={favorite}
-                    id={id}
-                    title={title}
-                    url={url}
-                    description={description}
-                    createdAt={createdAt}
-                    key={title}
-                  />
+                  <div key={`${title} ${url}`}>
+                    <DashCard
+                      isFavorite={favorite}
+                      id={id}
+                      title={title}
+                      url={url}
+                      description={description}
+                      createdAt={createdAt}
+                    />
+                  </div>
                 )
               )}
         </CardList>

@@ -1,6 +1,5 @@
 import DashFavorite from "../components/Dashboard/Favoritos";
 import DashHome from "../components/Dashboard/Home";
-import DashAbout from "../components/Dashboard/Sobre";
 import Home from "../pages/Home";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
@@ -33,7 +32,6 @@ const RoutesApp = () => {
         />
         <Route path="/dashboard/home" element={<DashHome />} />
         <Route path="/dashboard/favoritos" element={<DashFavorite />} />
-        <Route path="/dashboard/sobre" element={<DashAbout />} />
       </Route>
       <Route path="*" element={<Navigate to={"login"} />} />
     </Routes>
