@@ -110,7 +110,7 @@ const CollapsibleTable = () => {
             <Skeleton animation={false} />
           </StyledBox>
         ))
-      ) : filterRows.length == 0 ? (
+      ) : filterRows?.length == 0 ? (
         <p>
           Para ver essa seção, você precisa adicionar algum link nos favoritos!
         </p>

@@ -30,7 +30,7 @@ const DashContextProvider = ({ children }: IChildrenNode) => {
         const error = err.response?.data;
         toastError(error.message);
       }
-    } finally {
+
       setLoading(false);
     }
   };
@@ -46,7 +46,7 @@ const DashContextProvider = ({ children }: IChildrenNode) => {
         const error = err.response?.data;
         toastError(error.message);
       }
-    } finally {
+
       setLoading(false);
     }
   };
@@ -64,7 +64,7 @@ const DashContextProvider = ({ children }: IChildrenNode) => {
         const error = err.response?.data;
         toastError(error.message);
       }
-    } finally {
+
       setLoading(false);
     }
   };
@@ -81,24 +81,28 @@ const DashContextProvider = ({ children }: IChildrenNode) => {
         const error = err.response?.data;
         toastError(error.message);
       }
-    } finally {
+
       setLoading(false);
     }
   };
 
   useEffect(() => {
+    setLoading(true);
+
     const token = localStorage.getItem("@collectionLinkToken");
+
     const fetchData = async () => {
       try {
         Api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
         const request = await Api.get("/users");
         const response: IUser = request.data;
-        if (response.links.length == 0) {
-          setLoading(true);
-        }
         return response;
       } catch (err) {
-        console.error("Deu erro");
+        if (axios.isAxiosError(err)) {
+          const error = err.response?.data;
+
+          toastError(error.message || err.message);
+        }
       } finally {
         setLoading(false);
       }

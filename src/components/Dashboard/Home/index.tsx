@@ -17,7 +17,7 @@ const DashHome = () => {
       <HomeContainer>
         <FormCard />
         <CardList>
-          {loading || links.length == 0
+          {loading || links?.length == 0
             ? Array.from(new Array(6)).map((elem, index) => (
                 <Loading key={`${index} Load`} />
               ))
