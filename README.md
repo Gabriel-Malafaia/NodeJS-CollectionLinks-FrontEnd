@@ -30,7 +30,7 @@
 
 ## 📱 Preview 
 
-- <a href="https://react-entrega-kenzie-hub-gabriel-malafaia.vercel.app/">Link do projeto</a>
+- <a href="https://collection-links-front.vercel.app/login">Link do projeto</a>
 
 ![main](https://i.imgur.com/Gil0yms.png)
 
